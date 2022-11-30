@@ -43,7 +43,7 @@ FROM build_deps as frappe_builder
 ARG FRAPPE_VERSION=v14.17.0
 ARG FRAPPE_REPO=https://github.com/frappe/frappe
 # set DOCKER_BUILDKIT to 1 to enable buildkit cache
-ARG DOCKER_BUILDKIT=1
+RUN DOCKER_BUILDKIT=1
 RUN --mount=type=cache,target=/root/.cache/pip \
     git clone --depth 1 -b ${FRAPPE_VERSION} ${FRAPPE_REPO} apps/frappe \
     && install-app frappe \
@@ -70,7 +70,7 @@ FROM base as configured_base
 
 ARG WKHTMLTOPDF_VERSION=0.12.6-1
 # if frappe 14 use v16 else use v14
-ARG NODE_VERSION=v16
+ARG NODE_VERSION=16
 ENV NVM_DIR=/home/frappe/.nvm
 ENV PATH ${NVM_DIR}/versions/node/v${NODE_VERSION}/bin/:${PATH}
 RUN apt-get update \
