@@ -38,14 +38,12 @@ RUN apt-get update \
     make \
     && rm -rf /var/lib/apt/lists/*
 
-# RUN DOCKER_BUILDKIT=1 docker build . 
-# set DOCKER_BUILDKIT to 1 to use buildkit
-RUN DOCKER_BUILDKIT=1 docker build --target build_deps --output type=local,dest=. .
-
 FROM build_deps as frappe_builder
 
 ARG FRAPPE_VERSION=v14.17.0
 ARG FRAPPE_REPO=https://github.com/frappe/frappe
+# set DOCKER_BUILDKIT to 1 to enable buildkit cache
+ARG DOCKER_BUILDKIT=1
 RUN --mount=type=cache,target=/root/.cache/pip \
     git clone --depth 1 -b ${FRAPPE_VERSION} ${FRAPPE_REPO} apps/frappe \
     && install-app frappe \
