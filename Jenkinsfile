@@ -3,11 +3,11 @@ pipeline {
     agent any
     stages {
         stage('Sync Repository') {
-            when {
-                expression { 
-                    return env.BRANCH_NAME == 'origin/main'
-                }
-            }
+            // when {
+            //     expression { 
+            //         return env.BRANCH_NAME == 'origin/main'
+            //     }
+            // }
             steps {
                 echo 'Cloning repo...'
                 sshagent(credentials: ['Server_TAN_RnD']) {
@@ -23,11 +23,11 @@ pipeline {
             }
         }
         stage('Build Image and Push to Docker Hub') {
-            when {
-                expression { 
-                    return env.BRANCH_NAME == 'origin/main'
-                }
-            }
+            // when {
+            //     expression { 
+            //         return env.BRANCH_NAME == 'origin/main'
+            //     }
+            // }
             steps {
                 echo 'Building image...'
                 // using credentials dockerhub
