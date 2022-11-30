@@ -38,6 +38,9 @@ RUN apt-get update \
     make \
     && rm -rf /var/lib/apt/lists/*
 
+# RUN DOCKER_BUILDKIT=1 docker build . 
+# set DOCKER_BUILDKIT to 1 to use buildkit
+RUN DOCKER_BUILDKIT=1 docker build --target build_deps --output type=local,dest=. .
 
 FROM build_deps as frappe_builder
 
