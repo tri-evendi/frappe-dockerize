@@ -30,17 +30,9 @@ pipeline {
                         ssh -o StrictHostKeyChecking=no root@139.162.18.93 "\
                         cd /root/traefik/apps/frappe-dockerize &&\
                         docker build -t evendyx/frappe-dockerize:latest . &&\
-                        docker tag frappe-dockerize:latest evendyx/frappe-dockerize:latest &&\
                         echo $DOCKERHUB_CREDENTIALS | docker login --username $DOCKERHUB_CREDENTIALS_USR --password-stdin &&\
                         docker push evendyx/frappe-dockerize:latest"
                     '''
-                // withDockerRegistry([credentialsId: 'Docker_Vendy', url: '']) {
-                //     sh '''
-                //         cd /root/traefik/apps/frappe-dockerize &&\
-                //         docker build -t evendyx/frappe-dockerize:latest . &&\
-                //         docker tag frappe-dockerize:latest evendyx/frappe-dockerize:latest &&\
-                //         docker push evendyx/frappe-dockerize:latest
-                //     '''
                 }
             }
         }
